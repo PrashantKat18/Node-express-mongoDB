@@ -10,7 +10,6 @@ app.get("/", (req, res) => {
 })
 
 app.post("/employee", async (req, res) => {
-    console.log(req.body);
     try {
         const emp = new employee(req.body);
         const createEmp = await emp.save();
@@ -20,7 +19,47 @@ app.post("/employee", async (req, res) => {
     }
 })
 
+app.get("/employee", async (req, res) => {
+    try {
+        const emp = await employee.find();
+        res.send(emp);
+    } catch (e) {
+        res.status(400).send(e);
+    }
+})
+
+// get the individual data using id
+app.get("/employee/:id", async (req, res) => {
+    try {
+        const _id = req.params.id;
+        const emp = await employee.findById(_id);
+        if (!emp) {
+            return res.status(404).send();
+        } else {
+            res.send(emp)
+        }
+    } catch(e) {
+        res.send(e);
+    }
+})
+
+// update data
+app.get("/employee/:id", async (req, res) => {
+    try {
+        const _id = req.params.id;
+        const emp = await employee.findById(_id);
+        if (!emp) {
+            return res.status(404).send();
+        } else {
+            res.send(emp)
+        }
+    } catch(e) {
+        res.send(e);
+    }
+})
+
 
 app.listen(port, () => {
     console.log(`connection is setup dddst ${port}`);
 })
+
