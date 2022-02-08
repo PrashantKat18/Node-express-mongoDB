@@ -44,14 +44,14 @@ app.get("/employee/:id", async (req, res) => {
 })
 
 // update data
-app.get("/employee/:id", async (req, res) => {
+app.patch("/employee/:id", async (req, res) => {
     try {
         const _id = req.params.id;
-        const emp = await employee.findById(_id);
-        if (!emp) {
+        const updateemp = await employee.findByIdAndUpdate(_id,req.body,{new:true});
+        if (!updateemp) {
             return res.status(404).send();
         } else {
-            res.send(emp)
+            res.send(updateemp)
         }
     } catch(e) {
         res.send(e);
