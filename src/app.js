@@ -9,6 +9,7 @@ app.get("/", (req, res) => {
     res.send("hello");
 })
 
+// add employee details
 app.post("/employee", async (req, res) => {
     try {
         const emp = new employee(req.body);
@@ -19,6 +20,7 @@ app.post("/employee", async (req, res) => {
     }
 })
 
+// get employee details
 app.get("/employee", async (req, res) => {
     try {
         const emp = await employee.find();
@@ -43,7 +45,7 @@ app.get("/employee/:id", async (req, res) => {
     }
 })
 
-// update data
+// update employee details
 app.patch("/employee/:id", async (req, res) => {
     try {
         const _id = req.params.id;
@@ -56,6 +58,21 @@ app.patch("/employee/:id", async (req, res) => {
     } catch(e) {
         res.send(e);
     }
+})
+
+//delete employee details
+app.delete("/employee/:id",async(req,res)=>{
+    try {
+      const _id = req.params.id;
+      const deleteEmp = await employee.findByIdAndDelete(_id);
+      if(!_id){
+       return res.status(400).send();
+      }
+      res.send(deleteEmp)
+    }
+    catch(e){
+        res.status(500).send(e);
+    } 
 })
 
 
