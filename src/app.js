@@ -24,6 +24,7 @@ app.post("/employee", async (req, res) => {
 app.get("/employee", async (req, res) => {
     try {
         const emp = await employee.find();
+        console.log(emp);
         res.send(emp);
     } catch (e) {
         res.status(400).send(e);
@@ -75,8 +76,9 @@ app.delete("/employee/:id",async(req,res)=>{
     } 
 })
 
-
 app.listen(port, () => {
     console.log(`connection is setup dddst ${port}`);
 })
+
+
 
